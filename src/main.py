@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
@@ -6,7 +7,7 @@ import re
 
 app = FastAPI()
 
-openai.api_key = "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"
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 class Prompt(BaseModel):
@@ -18,7 +19,7 @@ class Response(BaseModel):
 
 
 # https://github.com/satory074/discordbot_chatgpt_sample/blob/main/main.py が参考になるかも。
-@app.post("/completions")
+@ app.post("/completions")
 async def completions(message: List[Prompt]):
     # response = openai.Completion.create(
     #     engine="davinci",
@@ -32,13 +33,15 @@ async def completions(message: List[Prompt]):
     escape_content: str = re.sub(
         r"<@(everyone|here|[!&]?[0-9]{17,20})> ", "", message[0].prompt)
 
-        # openaiに送るメッセージ
-    messages: list[dict[str, str]] = [{"role": "user", "content": escape_content}]
+    # openaiに送るメッセージ
+    messages: list[dict[str, str]] = [
+        {"role": "user", "content": escape_content}]
 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", messages=messages)
 
-    reply: str = "\n".join([choice["message"]["content"] for choice in response["choices"]])
+    reply: str = "\n".join([choice["message"]["content"]
+                            for choice in response["choices"]])
 
     return reply
 
