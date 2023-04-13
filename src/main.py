@@ -6,7 +6,7 @@ import re
 
 app = FastAPI()
 
-openai.api_key = "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"
+openai.api_key = "xxxx"
 
 
 class Prompt(BaseModel):
