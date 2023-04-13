@@ -19,7 +19,6 @@ class Response(BaseModel):
     text: str
 
 
-# https://github.com/satory074/discordbot_chatgpt_sample/blob/main/main.py が参考になるかも。
 @ app.post("/completions")
 async def completions(message: List[Prompt]):
     # response = openai.Completion.create(
