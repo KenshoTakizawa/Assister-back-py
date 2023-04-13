@@ -35,10 +35,13 @@ async def completions(message: List[Prompt]):
 
     # openaiに送るメッセージ
     messages: list[dict[str, str]] = [
-        {"role": "user", "content": escape_content}]
+        {"role": "user", "content": escape_content}
+    ]
 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", messages=messages)
+
+    print(response)
 
     reply: str = "\n".join([choice["message"]["content"]
                             for choice in response["choices"]])
