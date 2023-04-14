@@ -31,7 +31,7 @@ async def completions(message: Prompt):
     # )
 
     escape_content: str = re.sub(
-        r"<@(everyone|here|[!&]?[0-9]{17,20})> ", "", message[0].prompt)
+        r"<@(everyone|here|[!&]?[0-9]{17,20})> ", "", message.prompt)
 
     # openaiに送るメッセージ
     messages: list[dict[str, str]] = [
