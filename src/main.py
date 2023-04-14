@@ -19,8 +19,8 @@ class Response(BaseModel):
     text: str
 
 
-@ app.post("/completions")
-async def completions(message: List[Prompt]):
+@ app.post("/completion")
+async def completions(message: Prompt):
     # response = openai.Completion.create(
     #     engine="davinci",
     #     prompt=texts[0].prompt,
